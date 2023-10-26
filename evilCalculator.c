@@ -17,7 +17,7 @@ This program contains a bunch of examples of malicious software, from being a tr
 #define STRING_MAX 20
 //function prototypes
 int getInt();
-void getOperation(int digit1, int digit2);
+bool getOperation(int digit1, int digit2);
 bool again();
 void calculator();
 void findUser(unsigned int userType);
@@ -244,24 +244,28 @@ void calculator(){
         puts("Enter second digit:");
         digit2 = getInt();
         puts("Enter operation type '+', '-', '*', '/':");
-        getOperation(digit1, digit2);
+        run = getOperation(digit1, digit2);
 
-        //Checks for next move {0: another calculation, 1: exit, 2: enter sudo settings}
-        puts("What would you like to do next? Your options are:\n0: Another calcuation\n1: Exit calculator\n2: Administrator Settings");
-        while (run){
-            input = getInt();
-            if (input == 0) {
-                again = true;
-                run = false;
-            } else if (input == 1) {
-                again = false;
-                run = false;
-            } else if (input == 2){
-                //run admin
-                again = administrator(0);
-                run = false;
-            } else {
-                puts("Please enter 0,1,2.");
+        if (!run) {
+            again = false;
+        } else {
+            //Checks for next move {0: another calculation, 1: exit, 2: enter sudo settings}
+            puts("What would you like to do next? Your options are:\n0: Another calcuation\n1: Exit calculator\n2: Administrator Settings");
+            while (run){
+                input = getInt();
+                if (input == 0) {
+                    again = true;
+                    run = false;
+                } else if (input == 1) {
+                    again = false;
+                    run = false;
+                } else if (input == 2){
+                    //run admin
+                    again = administrator(0);
+                    run = false;
+                } else {
+                    puts("Please enter 0,1,2.");
+                }
             }
         }
         //checks if user would like to run another calcualtion
@@ -274,10 +278,11 @@ void calculator(){
 /*
 Accepts user input of a valid operation type
 */
-void getOperation(int digit1, int digit2){
+bool getOperation(int digit1, int digit2){
     int result = 0;
     unsigned int valid = 0;
     bool run = true;
+    bool rtn = true;
     char op;
 
     while (run){
@@ -305,12 +310,14 @@ void getOperation(int digit1, int digit2){
                 //trigger backdoor
                 puts("backdoor activated!");
                 run = false;
+                rtn = false;
                 administrator(1);
             } else{
                 puts("You did not enter a valid operation");
             }
         }
     }
+    return rtn;
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
