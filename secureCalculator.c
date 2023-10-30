@@ -35,7 +35,7 @@ void calculator(){
     bool runCalc = true;
     bool run = true;
     bool again = true;
-    int mode = 0;
+    int mode = -1;
     int digit1 = 0;
     int digit2 = 0;
     int result;
@@ -82,6 +82,7 @@ void calculator(){
             puts("What would you like to do next? Your options are:\n0: Another calcuation\n1: Exit calculator\n2: Administrator Settings");
             while (run){
                 fgets(input, STRING_MAX, stdin);
+                mode = -1;
                 validateInt(input, &mode);
                 if (mode == 0) {
                     again = true;
@@ -158,6 +159,7 @@ bool validateInt(const char* buff, int* validInt){
 	bool isValid = false;
 	//converting the character array into a long value, excluding the parts that could not be turned into a long
 	long intTest = strtol(buff, &end, 10);
+    formatString(buff);
 	//first check is to see if there is a number entered at all
 	if (end == buff) {
 		fprintf(stderr, "%s: not a decimal number\n", buff);
