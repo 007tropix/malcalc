@@ -20,7 +20,6 @@ This program contains a bunch of examples of malicious software, from being a tr
 //function prototypes
 int getInt();
 bool getOperation(int digit1, int digit2);
-bool again();
 void calculator();
 void findUser(unsigned int userType);
 bool newUser();
@@ -248,6 +247,7 @@ void sendFile(){
     //"running" exfiltraiton command
     puts("If the data were to actually send, this is what command would run:");
     fprintf(stdout, "system(%s)\n", cmd);
+    puts("This command requires a server to be listening to capture the exfiltrated data.");
 }
 /*
 Creates data exfil file, holds all user data, tree cat, and more
