@@ -14,7 +14,7 @@ Ryan Du Plooy and Murphy Schaff
 This is an example of what a more secure version of our malicious trojan horse calculator would look like
 
 */
-#define STRING_MAX 20
+#define STRING_MAX 50
 #define FILE_LINE_MAX 100
 
 
@@ -23,6 +23,181 @@ bool getOperation(int digit1, int digit2);
 void calculator();
 void formatString(char string[]);
 bool validateInt(const char* buff, int* validInt);
+bool userAuth();
+bool findUser(unsigned int userType);
+bool newUser();
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                         User Authentication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+/*
+Runs the user authentication protocol
+*/
+bool userAuth(){
+    int mode;
+    unsigned int valid = 0;
+    char input[STRING_MAX] = " ";
+    bool auth = false;
+    bool getMode = true;
+    
+    //gets user mode, either existing or create
+    while (getMode) {
+        puts("Attempting to authenticate as user. Please enter '0' for existing user or '1' for new user");
+        fgets(input, STRING_MAX, stdin);
+        validateInt(input, &mode);
+        if (mode == 0){
+            auth = findUser(0);
+            getMode = false;
+        } else if (mode == 1) {
+            auth = newUser();
+            getMode = false;
+        } else {
+            puts("Please enter a '0' for existing user or a '1' for new user");
+        }
+    }
+    //Provides access to calculator
+    if (auth){
+        puts("Access granted");
+        //calls calculator when access is granted.
+        calculator();
+    }
+
+}
+/*
+Finds and authenticates existing user
+*/
+bool findUser(unsigned int userType){
+    FILE* fileptr;
+    unsigned int count = 0;
+    unsigned int tot = 5;
+    char username[STRING_MAX];
+    char password[STRING_MAX];
+    char checkUser[STRING_MAX];
+    char checkPass[STRING_MAX];
+
+    bool searchUser = true;
+
+    //Allows the user to attempt to login
+    while (searchUser) {
+        puts("Please enter your username (or 'q' to quit):");
+        fgets(username, STRING_MAX, stdin);
+        formatString(username);
+        //allows for user to quit login sequence
+        if (strcmp(username, "q") == 0) {
+            return false;
+        }
+        puts("Please enter your password:");
+        fgets(password, STRING_MAX, stdin);
+        formatString(password);
+
+        //checks either the normal users file or sudoers file
+        if (userType == 0) {
+            fileptr = fopen("users/spass.txt", "r");
+        } else {
+            fileptr = fopen("users/sudoers.txt", "r");
+        }
+        //compares user input to to that in the file
+        if (fileptr == NULL){
+            puts("Unable to open passwords file");
+        } else {
+            //gets each individual username and password from the passwords file, checks against user input
+            while (fgets(checkUser, STRING_MAX, fileptr) != NULL) {
+                fgets(checkPass, STRING_MAX, fileptr);
+                formatString(checkUser);
+                formatString(checkPass);
+                /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                Where each hashed password needs to be converted and compared against input
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+                if (strcmp(username, checkUser) == 0 && strcmp(password, checkPass) == 0) {
+                    searchUser = false;
+                }
+            }
+            //searchUser still true, means it will run loop again
+            if (searchUser == true){
+                count++;
+                if (count == tot) {
+                    searchUser = false;
+                    puts("Access from calculator denied. Try again.");
+                    return false;
+                } else {
+                    fprintf(stdout, "User not found in file. You have %d attempts remaining\n", tot - count);
+                }
+            } else {
+                puts("found existing user");
+                return true;
+            }
+        }
+        fclose(fileptr);
+    }
+}
+/*
+Allows for the creation of new users
+*/
+bool newUser(){
+    FILE* fileptr;
+    int passlen = 0;
+    char username[STRING_MAX];
+    char password[STRING_MAX];
+    char usercheck[STRING_MAX];
+    char hold[STRING_MAX];
+    bool checkPass = true;
+    bool checkUser = true;
+
+    puts("Welcome new user!");
+
+    //Makes sure that the username is unique to all others on file
+    fileptr = fopen("users/spass.txt", "r");
+    while (checkUser) {
+        checkUser = false;
+        puts("Please enter your username");
+        fgets(username, STRING_MAX, stdin);
+        formatString(username);
+        //checks all usernames on file to see if they are the same
+        while (fgets(usercheck, STRING_MAX, fileptr) != NULL) {
+            fgets(hold, STRING_MAX, fileptr);
+            formatString(usercheck);
+            if (strcmp(username, usercheck) == 0) {
+                fprintf(stdout, "Username %s has already been used. Please enter another one\n", username);
+                checkUser = true;
+            }
+        }
+    }
+    fclose(fileptr);
+    //Makes sure password is of certian length
+    while (checkPass) {
+        puts("Please enter your password. It must be at least 14 characters in length");
+        fgets(password, STRING_MAX, stdin);
+        formatString(password);
+        passlen = strlen(password);
+        if (passlen < 14) {
+            puts("Please enter a password length greater than or equal to 14.");
+        } else if (passlen > STRING_MAX) {
+            fprintf(stdout, "Please enter a password length that is less than %d", STRING_MAX);
+        } else {
+            checkPass = false;
+        }
+    }
+    /*
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    This is where the password needs to be hashed and returned
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    */
+
+    fileptr = fopen("users/spass.txt", "a");
+    if (fileptr == NULL){
+        puts("Unable to open passwords file");
+    } else {
+        //adds username and password to passwords.txt file
+        fputs(username, fileptr);
+        fputs("\n", fileptr);
+        fputs(password, fileptr);
+        fputs("\n", fileptr);
+    }
+    fclose(fileptr);
+    return true;
+
+}
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                                        Calculator Functionaltiy
@@ -105,7 +280,6 @@ void calculator(){
             runCalc = false;
         }
     }
-    puts("Thank you for using the worlds best calculator!!!");
 }
 /*
 Accepts user input of a valid operation type
@@ -206,5 +380,6 @@ void formatString(char string[]) {
 */
 int main(){
     puts("Welcome to the best ever calculator!");
-    calculator();
+    userAuth();
+    puts("Thank you for using the worlds best calculator!!!");
 }
