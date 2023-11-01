@@ -24,7 +24,7 @@ void calculator();
 void formatString(char string[]);
 bool validateInt(const char* buff, int* validInt);
 bool userAuth();
-bool findUser(unsigned int userType);
+bool findUser();
 bool newUser();
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,7 +67,7 @@ bool userAuth(){
 /*
 Finds and authenticates existing user
 */
-bool findUser(unsigned int userType){
+bool findUser(){
     FILE* fileptr;
     unsigned int count = 0;
     unsigned int tot = 5;
@@ -90,13 +90,9 @@ bool findUser(unsigned int userType){
         puts("Please enter your password:");
         fgets(password, STRING_MAX, stdin);
         formatString(password);
-
         //checks either the normal users file or sudoers file
-        if (userType == 0) {
-            fileptr = fopen("users/spass.txt", "r");
-        } else {
-            fileptr = fopen("users/sudoers.txt", "r");
-        }
+        fileptr = fopen("users/secure_passwords.txt", "r");
+
         //compares user input to to that in the file
         if (fileptr == NULL){
             puts("Unable to open passwords file");
@@ -147,7 +143,7 @@ bool newUser(){
     puts("Welcome new user!");
 
     //Makes sure that the username is unique to all others on file
-    fileptr = fopen("users/spass.txt", "r");
+    fileptr = fopen("users/secure_passwords.txt", "r");
     while (checkUser) {
         checkUser = false;
         puts("Please enter your username");
@@ -184,7 +180,7 @@ bool newUser(){
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
     */
 
-    fileptr = fopen("users/spass.txt", "a");
+    fileptr = fopen("secure_passwords.txt", "a");
     if (fileptr == NULL){
         puts("Unable to open passwords file");
     } else {
