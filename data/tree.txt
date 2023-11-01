@@ -16,8 +16,10 @@
 │           └── The Project
 │               ├── CS4920-Port-Pirates
 │               │   ├── data
+│               │   │   ├── cpu_info.txt
 │               │   │   ├── exfil.txt
 │               │   │   ├── ip.txt
+│               │   │   ├── network_info.txt
 │               │   │   ├── potential_leads.txt
 │               │   │   └── tree.txt
 │               │   ├── evilCalculator
@@ -68,4 +70,4 @@
 ├── Templates
 └── Videos
 
-44 directories, 24 files
+44 directories, 26 files

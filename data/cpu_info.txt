@@ -1,0 +1,37 @@
+Architecture:                       x86_64
+CPU op-mode(s):                     32-bit, 64-bit
+Address sizes:                      45 bits physical, 48 bits virtual
+Byte Order:                         Little Endian
+CPU(s):                             6
+On-line CPU(s) list:                0-5
+Vendor ID:                          AuthenticAMD
+Model name:                         AMD Ryzen 9 5900X 12-Core Processor
+CPU family:                         25
+Model:                              33
+Thread(s) per core:                 1
+Core(s) per socket:                 3
+Socket(s):                          2
+Stepping:                           2
+BogoMIPS:                           7400.00
+Flags:                              fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext pdpe1gb rdtscp lm constant_tsc rep_good nopl tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext ibpb vmmcall fsgsbase bmi1 avx2 smep bmi2 erms rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero arat umip vaes vpclmulqdq rdpid overflow_recov succor fsrm
+Hypervisor vendor:                  VMware
+Virtualization type:                full
+L1d cache:                          192 KiB (6 instances)
+L1i cache:                          192 KiB (6 instances)
+L2 cache:                           3 MiB (6 instances)
+L3 cache:                           64 MiB (2 instances)
+NUMA node(s):                       1
+NUMA node0 CPU(s):                  0-5
+Vulnerability Gather data sampling: Not affected
+Vulnerability Itlb multihit:        Not affected
+Vulnerability L1tf:                 Not affected
+Vulnerability Mds:                  Not affected
+Vulnerability Meltdown:             Not affected
+Vulnerability Mmio stale data:      Not affected
+Vulnerability Retbleed:             Not affected
+Vulnerability Spec rstack overflow: Mitigation; safe RET
+Vulnerability Spec store bypass:    Vulnerable
+Vulnerability Spectre v1:           Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:           Mitigation; Retpolines, IBPB conditional, STIBP disabled, RSB filling, PBRSB-eIBRS Not affected
+Vulnerability Srbds:                Not affected
+Vulnerability Tsx async abort:      Not affected
