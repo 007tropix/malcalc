@@ -1,0 +1,5 @@
+/home/ryan/.local/share/Trash/files/secret_passwords.txt
+/home/ryan/.local/share/Trash/info/secret_passwords.txt.trashinfo
+/home/ryan/snap/snap-store/common/.cache/gnome-software/icons/0d1fefba5305851af4f8106615196c8d093eb7b4-multipass.png
+/home/ryan/Documents/Code/Computer Security/The Project/CS4920-Port-Pirates/users/passwords.txt
+/home/ryan/Documents/Code/Computer Security/The Project/CS4920-Port-Pirates/users/spass.txt

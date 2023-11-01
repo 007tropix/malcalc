@@ -1,0 +1,72 @@
+/home/ryan
+├── Desktop
+├── Documents
+│   └── Code
+│       ├── Computer Networks
+│       │   └── C Socket
+│       │       ├── client
+│       │       ├── client.c
+│       │       ├── received.txt
+│       │       ├── server
+│       │       ├── server.c
+│       │       └── test.txt
+│       └── Computer Security
+│           ├── test
+│           ├── test.c
+│           └── The Project
+│               ├── CS4920-Port-Pirates
+│               │   ├── data
+│               │   │   ├── exfil.txt
+│               │   │   ├── ip.txt
+│               │   │   ├── potential_leads.txt
+│               │   │   └── tree.txt
+│               │   ├── evilCalculator
+│               │   ├── evilCalculator.c
+│               │   ├── output.txt
+│               │   ├── README.md
+│               │   ├── secureCalculator
+│               │   ├── secureCalculator.c
+│               │   └── users
+│               │       ├── passwords.txt
+│               │       ├── spass.txt
+│               │       └── sudoers.txt
+│               ├── output2.txt
+│               └── output.txt
+├── Downloads
+│   └── code_1.82.2-1694671812_amd64.deb
+├── Music
+├── Pictures
+├── Public
+├── snap
+│   ├── code
+│   │   ├── 140
+│   │   ├── 143
+│   │   ├── common
+│   │   └── current -> 143
+│   ├── firefox
+│   │   ├── 3131
+│   │   ├── 3252
+│   │   ├── common
+│   │   └── current -> 3252
+│   ├── ghidra
+│   │   └── current -> 19
+│   ├── snapd-desktop-integration
+│   │   ├── 83
+│   │   │   ├── Desktop
+│   │   │   ├── Documents
+│   │   │   ├── Downloads
+│   │   │   ├── Music
+│   │   │   ├── Pictures
+│   │   │   ├── Public
+│   │   │   ├── Templates
+│   │   │   └── Videos
+│   │   ├── common
+│   │   └── current -> 83
+│   └── snap-store
+│       ├── 959
+│       ├── common
+│       └── current -> 959
+├── Templates
+└── Videos
+
+44 directories, 25 files
