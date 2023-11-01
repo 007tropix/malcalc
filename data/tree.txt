@@ -22,7 +22,6 @@
 │               │   │   └── tree.txt
 │               │   ├── evilCalculator
 │               │   ├── evilCalculator.c
-│               │   ├── output.txt
 │               │   ├── README.md
 │               │   ├── secureCalculator
 │               │   ├── secureCalculator.c
@@ -69,4 +68,4 @@
 ├── Templates
 └── Videos
 
-44 directories, 25 files
+44 directories, 24 files
