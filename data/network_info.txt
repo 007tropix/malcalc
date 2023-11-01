@@ -5,9 +5,9 @@
     inet6 ::1/128 scope host 
        valid_lft forever preferred_lft forever
 2: ens33: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 00:0c:29:f3:7f:f3 brd ff:ff:ff:ff:ff:ff
+    link/ether 00:0c:29:ca:05:78 brd ff:ff:ff:ff:ff:ff
     altname enp2s1
-    inet 192.168.116.132/24 brd 192.168.116.255 scope global dynamic noprefixroute ens33
-       valid_lft 1777sec preferred_lft 1777sec
-    inet6 fe80::8a22:21d3:1ce7:ad97/64 scope link noprefixroute 
+    inet 192.168.129.137/24 brd 192.168.129.255 scope global dynamic noprefixroute ens33
+       valid_lft 943sec preferred_lft 943sec
+    inet6 fe80::1176:5974:515e:9119/64 scope link noprefixroute 
        valid_lft forever preferred_lft forever
