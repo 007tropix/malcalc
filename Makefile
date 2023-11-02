@@ -7,6 +7,8 @@ dependencies:
 	@echo "Installing all dependencies. Sudo password required."
 	@echo "Installing tree...."
 	@sudo apt install tree
+	@echo "Installing gcc...."
+	@sudo apt install gcc
 
 clean:
 	@echo "Cleaning Files...."
