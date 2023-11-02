@@ -1,6 +1,8 @@
 #CS4920 Port-Pirates project MakeFile
 #Ryan Du Plooy and Murphy Schaff
 
+all: dependencies clean compile
+
 dependencies:
 	@echo "Installing all dependencies. Sudo password required."
 	@echo "Installing tree...."
@@ -9,8 +11,8 @@ dependencies:
 clean:
 	@echo "Cleaning Files...."
 	@rm data/*.txt
-	@rm data/passwords.txt
-	@rm data/sudoers.txt
+	@rm users/passwords.txt
+	@rm users/sudoers.txt
 	@rm *.tar
 	
 	@echo "Creating default users for evilCalculator..."
