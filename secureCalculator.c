@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -14,8 +15,8 @@ Ryan Du Plooy and Murphy Schaff
 This is an example of what a more secure version of our malicious trojan horse calculator would look like
 
 */
-#define STRING_MAX 50
-#define FILE_LINE_MAX 100
+#define STRING_MAX 150
+#define FILE_LINE_MAX 150
 
 
 //function prototypes
@@ -73,9 +74,13 @@ bool findUser(){
     unsigned int tot = 5;
     char username[STRING_MAX];
     char password[STRING_MAX];
-    char checkUser[STRING_MAX];
-    char checkPass[STRING_MAX];
-
+    char checkLine[FILE_LINE_MAX];
+    char currentUser[STRING_MAX];
+    char currentPassword[STRING_MAX];
+    char currentHash[STRING_MAX];
+    char currentSalt[STRING_MAX];
+    char command[200];
+    char * token;
     bool searchUser = true;
 
     //Allows the user to attempt to login
@@ -90,7 +95,7 @@ bool findUser(){
         puts("Please enter your password:");
         fgets(password, STRING_MAX, stdin);
         formatString(password);
-        //checks either the normal users file or sudoers file
+        // sets fileptr to secure_passwords file
         fileptr = fopen("users/secure_passwords.txt", "r");
 
         //compares user input to to that in the file
@@ -98,15 +103,42 @@ bool findUser(){
             puts("Unable to open passwords file");
         } else {
             //gets each individual username and password from the passwords file, checks against user input
-            while (fgets(checkUser, STRING_MAX, fileptr) != NULL) {
-                fgets(checkPass, STRING_MAX, fileptr);
-                formatString(checkUser);
-                formatString(checkPass);
-                /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                Where each hashed password needs to be converted and compared against input
-                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-                if (strcmp(username, checkUser) == 0 && strcmp(password, checkPass) == 0) {
+            while (fgets(checkLine, FILE_LINE_MAX, fileptr) != NULL) {
+                formatString(checkLine);
+
+                // separate username and password by space
+                token = strtok(checkLine, " ");
+
+                // copy current token into currentUser
+                strcpy(currentUser, token);
+
+                // set token to password
+                token = strtok(NULL, " ");
+                strcpy(currentPassword, token);
+
+                // set current salt
+                strncpy(currentSalt, currentPassword+3, 18);
+
+
+                snprintf(command, sizeof(command), "openssl passwd -6 -salt %s %s", currentSalt, password);
+
+                // Run the command and capture the output
+                FILE *fp = popen(command, "r");
+                if (fp == NULL) {
+                    perror("popen");
+                    return 1;
+                }
+                  // Adjust the size based on your needs
+                fgets(currentHash, sizeof(currentHash), fp) != NULL;
+                
+                formatString(currentUser);
+                formatString(currentPassword);
+                formatString(currentHash);
+
+                // check if input username matches current in file
+                if (strcmp(username, currentUser) == 0  && strcmp(currentPassword, currentHash) == 0){
                     searchUser = false;
+                    break;
                 }
             }
             //searchUser still true, means it will run loop again
