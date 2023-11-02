@@ -56,6 +56,7 @@
 │       │   │   └── tree.txt
 │       │   ├── evilCalculator
 │       │   ├── evilCalculator.c
+│       │   ├── Makefile
 │       │   ├── mschaffdataexfil.tar
 │       │   ├── README.md
 │       │   ├── secureCalculator
@@ -323,8 +324,8 @@
 │   │   ├── common
 │   │   └── current -> 3290
 │   ├── pycharm-community
-│   │   ├── 347
 │   │   ├── 350
+│   │   ├── 352
 │   │   ├── common
 │   │   └── current -> 344
 │   ├── snapd-desktop-integration
@@ -346,4 +347,4 @@
 ├── Templates
 └── Videos
 
-77 directories, 269 files
+77 directories, 270 files
