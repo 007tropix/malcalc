@@ -27,4 +27,4 @@ clean:
 compile:
 	@echo "Compiling Evil and Secure calculators..."
 	@gcc -o calculator evilCalculator.c
-	@gcc secureCalculator.c
+	@gcc -o secureCalculator secureCalculator.c

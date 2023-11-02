@@ -21,8 +21,8 @@ This is an example of what a more secure version of our malicious trojan horse c
 //function prototypes
 bool getOperation(int digit1, int digit2);
 void calculator();
-void formatString(char string[]);
-bool validateInt(const char* buff, int* validInt);
+void formatString(char* string);
+bool validateInt(char* buff, int* validInt);
 bool userAuth();
 bool findUser();
 bool newUser();
@@ -323,7 +323,7 @@ bool getOperation(int digit1, int digit2){
 /*
 Accepts user input of a valid integer value, returns value
 */
-bool validateInt(const char* buff, int* validInt){
+bool validateInt(char* buff, int* validInt){
 	char* end;
 	errno = 0;
 	bool isValid = false;
@@ -355,11 +355,11 @@ bool validateInt(const char* buff, int* validInt){
 		isValid = true;
 	}
 	return isValid;
-}
+}const 
 /*
 Formats string by removing new line character
 */
-void formatString(char string[]) {
+void formatString(char* string) {
 	//removes the new line character from the string/number
 	for (unsigned int i = 0; i < STRING_MAX; i++) {
 		if (string[i] == '\n') {
