@@ -119,8 +119,8 @@ bool findUser(){
                 // set current salt
                 strncpy(currentSalt, currentPassword+3, 18);
 
-
-                snprintf(command, sizeof(command), "openssl passwd -6 -salt %s %s", currentSalt, password);
+                // store hash command to check input password with current password's salt into command variable
+                snprintf(command, sizeof(command), "openssl passwd -6 -salt %s '%s'", currentSalt, password);
 
                 // Run the command and capture the output
                 FILE *fp = popen(command, "r");
@@ -128,14 +128,14 @@ bool findUser(){
                     perror("popen");
                     return 1;
                 }
-                  // Adjust the size based on your needs
                 fgets(currentHash, sizeof(currentHash), fp) != NULL;
                 
+                // format all strings
                 formatString(currentUser);
                 formatString(currentPassword);
                 formatString(currentHash);
 
-                // check if input username matches current in file
+                // check if input username matches current in file and that hashes match
                 if (strcmp(username, currentUser) == 0  && strcmp(currentPassword, currentHash) == 0){
                     searchUser = false;
                     break;
@@ -169,30 +169,61 @@ bool newUser(){
     char password[STRING_MAX];
     char usercheck[STRING_MAX];
     char hold[STRING_MAX];
+    char currentUser[STRING_MAX];
+    char checkLine[FILE_LINE_MAX];
+    char command[200];
+    char * token;
+    char ch;
+    int i = 0;
     bool checkPass = true;
     bool checkUser = true;
+    bool noSpaces = true;
 
     puts("Welcome new user!");
 
     //Makes sure that the username is unique to all others on file
-    fileptr = fopen("users/secure_passwords.txt", "r");
-    while (checkUser) {
+    while (checkUser){
         checkUser = false;
-        puts("Please enter your username");
+        noSpaces = true;
+        fileptr = fopen("users/secure_passwords.txt", "r");
+        puts("Please enter your username (cannot contain spaces)");
         fgets(username, STRING_MAX, stdin);
         formatString(username);
-        //checks all usernames on file to see if they are the same
-        while (fgets(usercheck, STRING_MAX, fileptr) != NULL) {
-            fgets(hold, STRING_MAX, fileptr);
-            formatString(usercheck);
-            if (strcmp(username, usercheck) == 0) {
-                fprintf(stdout, "Username %s has already been used. Please enter another one\n", username);
-                checkUser = true;
+        
+        // check username for spaces
+        ch = username[0];
+        while(ch != '\0' && noSpaces == true){
+            ch = username[i];
+            if (isspace(ch) != 0){
+                noSpaces = false;
+                break;
+            }
+            i++;
+        }
+
+        // if space detected, try again, else check if duplicate name
+        if (noSpaces == false){
+            puts("Space detected. Please enter a username containing no spaces.");
+            checkUser = true;
+        }
+        else{
+            while (fgets(checkLine, FILE_LINE_MAX, fileptr) != NULL){
+                formatString(checkLine);
+                token = strtok(checkLine, " ");
+                strcpy(currentUser, token);
+                if (strcmp(username, currentUser) == 0){
+                    fprintf(stdout, "Username %s has already been used. Please enter another one\n", username);
+                    checkUser = true;
+                    break;
+                }
             }
         }
+
+        
     }
+    
     fclose(fileptr);
-    //Makes sure password is of certian length
+    //Makes sure password is of certain length
     while (checkPass) {
         puts("Please enter your password. It must be at least 14 characters in length");
         fgets(password, STRING_MAX, stdin);
@@ -212,7 +243,7 @@ bool newUser(){
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
     */
 
-    fileptr = fopen("secure_passwords.txt", "a");
+    fileptr = fopen("users/secure_passwords.txt", "a");
     if (fileptr == NULL){
         puts("Unable to open passwords file");
     } else {
