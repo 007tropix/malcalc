@@ -437,7 +437,7 @@ int getInt(){
     bool run = true;
     char input[STRING_MAX];
     int integer;
-    unsigned int valid = 0;
+    bool valid;
     while(run){
         fgets(input, STRING_MAX, stdin);
         valid = validateInt(input, &integer);
