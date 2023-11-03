@@ -1,5 +1,6 @@
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
 fd0      2:0    1     4K  0 disk 
+loop0    7:0    0  55.7M  1 loop /snap/core18/2796
 loop1    7:1    0 303.4M  1 loop /snap/code/143
 loop2    7:2    0     4K  1 loop /snap/bare/5
 loop3    7:3    0 303.3M  1 loop /snap/code/144

