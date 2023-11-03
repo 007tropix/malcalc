@@ -167,9 +167,8 @@ bool newUser(){
     int passlen = 0;
     char username[STRING_MAX];
     char password[STRING_MAX];
-    char usercheck[STRING_MAX];
-    char hold[STRING_MAX];
     char currentUser[STRING_MAX];
+    char hashedPassword[STRING_MAX];
     char checkLine[FILE_LINE_MAX];
     char command[200];
     char * token;
@@ -185,6 +184,7 @@ bool newUser(){
     while (checkUser){
         checkUser = false;
         noSpaces = true;
+        i = 0;
         fileptr = fopen("users/secure_passwords.txt", "r");
         puts("Please enter your username (cannot contain spaces)");
         fgets(username, STRING_MAX, stdin);
@@ -247,11 +247,21 @@ bool newUser(){
     if (fileptr == NULL){
         puts("Unable to open passwords file");
     } else {
+        // generate password hash
+        snprintf(command, sizeof(command), "openssl passwd -6 '%s'", password);
+
+        // Run the command and capture the output
+        FILE *fp = popen(command, "r");
+        if (fp == NULL) {
+            perror("popen");
+            return 1;
+        }
+        fgets(hashedPassword, sizeof(hashedPassword), fp) != NULL;
+
         //adds username and password to passwords.txt file
         fputs(username, fileptr);
-        fputs("\n", fileptr);
-        fputs(password, fileptr);
-        fputs("\n", fileptr);
+        fputs(" ", fileptr);
+        fputs(hashedPassword, fileptr);
     }
     fclose(fileptr);
     return true;
