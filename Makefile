@@ -20,7 +20,7 @@ clean:
 	@echo "Creating default users for evilCalculator..."
 	@echo "default" > users/passwords.txt
 	@echo "default" >> users/passwords.txt
-	@chmod 600 secure_passwords.txt
+	@chmod 600 users/secure_passwords.txt
 	
 	@echo "murphy" > users/sudoers.txt
 	@echo "hi" >> users/sudoers.txt
