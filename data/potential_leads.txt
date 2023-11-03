@@ -15,7 +15,11 @@
 /home/mschaff/.vscode/extensions/ms-python.python-2023.20.0/pythonFiles/lib/jedilsp/jedi/third_party/typeshed/stdlib/2/getpass.pyi
 /home/mschaff/.vscode/extensions/ms-python.python-2023.20.0/pythonFiles/lib/jedilsp/jedi/third_party/django-stubs/django-stubs/contrib/auth/management/commands/changepassword.pyi
 /home/mschaff/.vscode/extensions/ms-python.python-2023.20.0/pythonFiles/lib/jedilsp/jedi/third_party/django-stubs/django-stubs/contrib/auth/password_validation.pyi
-/home/mschaff/.vscode/extensions/ms-python.python-2023.18.0/pythonFiles/lib/jedilsp/jedi/third_party/typeshed/stdlib/3/getpass.pyi
-/home/mschaff/.vscode/extensions/ms-python.python-2023.18.0/pythonFiles/lib/jedilsp/jedi/third_party/typeshed/stdlib/2/getpass.pyi
-/home/mschaff/.vscode/extensions/ms-python.python-2023.18.0/pythonFiles/lib/jedilsp/jedi/third_party/django-stubs/django-stubs/contrib/auth/management/commands/changepassword.pyi
-/home/mschaff/.vscode/extensions/ms-python.python-2023.18.0/pythonFiles/lib/jedilsp/jedi/third_party/django-stubs/django-stubs/contrib/auth/password_validation.pyi
+/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.11.10/dist/bundled/stubs/django-stubs/contrib/auth/management/commands/changepassword.pyi
+/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.11.10/dist/bundled/stubs/django-stubs/contrib/auth/password_validation.pyi
+/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.11.10/dist/bundled/stubs/sklearn/linear_model/_passive_aggressive.pyi
+/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.11.10/dist/typeshed-fallback/stubs/influxdb-client/influxdb_client/domain/password_reset_body.pyi
+/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.11.10/dist/typeshed-fallback/stubs/braintree/braintree/masterpass_card.pyi
+/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.11.10/dist/typeshed-fallback/stubs/passlib/passlib/handlers/phpass.pyi
+/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.11.10/dist/typeshed-fallback/stubs/oauthlib/oauthlib/oauth2/rfc6749/grant_types/resource_owner_password_credentials.pyi
+/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.11.10/dist/typeshed-fallback/stdlib/getpass.pyi

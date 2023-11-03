@@ -27,6 +27,7 @@ bool validateInt(char* buff, int* validInt);
 bool userAuth();
 bool findUser();
 bool newUser();
+int getInt();
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                                          User Authentication
@@ -286,7 +287,7 @@ void calculator(){
     unsigned int valid = 0;
     char op;
     char input[STRING_MAX] = " ";
-    puts("What would you like to do first? Your options are:\n0: Do a calcuation\n1: Exit calculator\n2: Administrator Settings");
+    puts("What would you like to do first? Your options are:\n0: Do a calcuation\n1: Exit calculator");
     while (run){
         fgets(input, STRING_MAX, stdin);
         validateInt(input, &mode);
@@ -297,13 +298,8 @@ void calculator(){
             again = false;
             run = false;
             runCalc = false;
-        } else if (mode == 2){
-            //run admin
-            puts("You have entered admin mode, if there was one");
-            //runCalc = administrator(0);
-            run = false;
         } else {
-            puts("Please enter 0,1,2.");
+            puts("Please enter 0 or 1");
         }
     }
     while (runCalc){
@@ -311,19 +307,17 @@ void calculator(){
         puts("New Calculation:");
         //enter first number, then second number, then operation
         puts("Enter the first digit:");
-        fgets(input, STRING_MAX, stdin);
-        validateInt(input, &digit1);
+        digit1 = getInt();
         puts("Enter second digit:");
-        fgets(input, STRING_MAX, stdin);
-        validateInt(input, &digit2);
+        digit2 = getInt();
         puts("Enter operation type '+', '-', '*', '/':");
         run = getOperation(digit1, digit2);
 
         if (!run) {
             again = false;
         } else {
-            //Checks for next move {0: another calculation, 1: exit, 2: enter sudo settings}
-            puts("What would you like to do next? Your options are:\n0: Another calcuation\n1: Exit calculator\n2: Administrator Settings");
+            //Checks for next move {0: another calculation, 1: exit}
+            puts("What would you like to do next? Your options are:\n0: Another calcuation\n1: Exit calculator");
             while (run){
                 fgets(input, STRING_MAX, stdin);
                 mode = -1;
@@ -334,13 +328,8 @@ void calculator(){
                 } else if (mode == 1) {
                     again = false;
                     run = false;
-                } else if (mode == 2){
-                    //run admin
-                    puts("You have entered admin mode, if there was one");
-                    //again = administrator(0);
-                    run = false;
                 } else {
-                    puts("Please enter 0,1,2.");
+                    puts("Please enter 0 or 1");
                 }
             }
         }
@@ -405,7 +394,7 @@ bool validateInt(char* buff, int* validInt){
     formatString(buff);
 	//first check is to see if there is a number entered at all
 	if (end == buff) {
-		fprintf(stderr, "%s: not a decimal number\n", buff);
+		fprintf(stderr, "%s: not a number\n", buff);
 	}
 	//next check is to make sure there were no characters added after any numbers
 	else if ('\0' != *end && '\n' != *end) {
@@ -440,6 +429,25 @@ void formatString(char* string) {
 		}
 	}
 
+}
+/*
+Securely gets an integer value
+*/
+int getInt(){
+    bool run = true;
+    char input[STRING_MAX];
+    int integer;
+    unsigned int valid = 0;
+    while(run){
+        fgets(input, STRING_MAX, stdin);
+        valid = validateInt(input, &integer);
+        if (valid){
+            run = false;
+        } else {
+            puts("Please enter an integer value");
+        }
+    }
+    return integer;
 }
 
 /*

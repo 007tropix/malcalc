@@ -1,25 +1,25 @@
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
 fd0      2:0    1     4K  0 disk 
-loop0    7:0    0     4K  1 loop /snap/bare/5
-loop1    7:1    0  63.4M  1 loop /snap/core20/1974
-loop2    7:2    0 303.4M  1 loop /snap/code/142
-loop3    7:3    0 303.4M  1 loop /snap/code/143
+loop1    7:1    0 303.4M  1 loop /snap/code/143
+loop2    7:2    0     4K  1 loop /snap/bare/5
+loop3    7:3    0 303.3M  1 loop /snap/code/144
 loop4    7:4    0  55.7M  1 loop /snap/core18/2790
-loop5    7:5    0  63.5M  1 loop /snap/core20/2015
-loop6    7:6    0  73.9M  1 loop /snap/core22/858
-loop7    7:7    0 238.8M  1 loop /snap/firefox/3252
+loop5    7:5    0  63.4M  1 loop /snap/core20/1974
+loop6    7:6    0  63.5M  1 loop /snap/core20/2015
+loop7    7:7    0  73.9M  1 loop /snap/core22/858
 loop8    7:8    0 240.3M  1 loop /snap/firefox/3290
 loop9    7:9    0 349.7M  1 loop /snap/gnome-3-38-2004/143
 loop10   7:10   0 496.9M  1 loop /snap/gnome-42-2204/132
 loop11   7:11   0  91.7M  1 loop /snap/gtk-common-themes/1535
-loop12   7:12   0   497M  1 loop /snap/gnome-42-2204/141
-loop14   7:14   0  73.9M  1 loop /snap/core22/864
-loop15   7:15   0 617.9M  1 loop /snap/pycharm-community/350
+loop12   7:12   0   618M  1 loop /snap/pycharm-community/352
+loop13   7:13   0  12.3M  1 loop /snap/snap-store/959
+loop14   7:14   0  40.8M  1 loop /snap/snapd/20092
+loop15   7:15   0  40.9M  1 loop /snap/snapd/20290
 loop16   7:16   0   452K  1 loop /snap/snapd-desktop-integration/83
-loop17   7:17   0  12.3M  1 loop /snap/snap-store/959
-loop18   7:18   0  40.9M  1 loop /snap/snapd/20290
-loop19   7:19   0  40.8M  1 loop /snap/snapd/20092
-loop20   7:20   0   618M  1 loop /snap/pycharm-community/352
+loop17   7:17   0 238.8M  1 loop /snap/firefox/3252
+loop18   7:18   0  73.9M  1 loop /snap/core22/864
+loop19   7:19   0   497M  1 loop /snap/gnome-42-2204/141
+loop20   7:20   0 617.9M  1 loop /snap/pycharm-community/350
 sda      8:0    0    50G  0 disk 
 ├─sda1   8:1    0     1M  0 part 
 ├─sda2   8:2    0   513M  0 part /boot/efi
