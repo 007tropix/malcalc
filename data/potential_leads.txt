@@ -1,16 +1,17 @@
 /home/mschaff/.thunderbird/b921ubxv.default-release/encrypted-openpgp-passphrase.txt
+/home/mschaff/Downloads/ghidra_10.4_PUBLIC/Ghidra/Features/Python/data/jython-2.7.3/Lib/getpass.py
+/home/mschaff/Downloads/ghidra_10.4_PUBLIC/Ghidra/Features/Python/data/jython-2.7.3/Lib/json/tests/test_pass2$py.class
+/home/mschaff/Downloads/ghidra_10.4_PUBLIC/Ghidra/Features/Python/data/jython-2.7.3/Lib/json/tests/test_pass2.py
+/home/mschaff/Downloads/ghidra_10.4_PUBLIC/Ghidra/Features/Python/data/jython-2.7.3/Lib/json/tests/test_pass1.py
+/home/mschaff/Downloads/ghidra_10.4_PUBLIC/Ghidra/Features/Python/data/jython-2.7.3/Lib/json/tests/test_pass1$py.class
+/home/mschaff/Downloads/ghidra_10.4_PUBLIC/Ghidra/Features/Python/data/jython-2.7.3/Lib/json/tests/test_pass3.py
+/home/mschaff/Downloads/ghidra_10.4_PUBLIC/Ghidra/Features/Python/data/jython-2.7.3/Lib/json/tests/test_pass3$py.class
+/home/mschaff/Downloads/ghidra_10.4_PUBLIC/Ghidra/Features/Python/data/jython-2.7.3/Lib/getpass$py.class
+/home/mschaff/Documents/jdk-21.0.1+12/conf/management/jmxremote.password.template
 /home/mschaff/Documents/SimpleMark/password.txt
 /home/mschaff/Documents/UCCS/CS4920-Port-Pirates/users/secure_passwords.txt
 /home/mschaff/Documents/UCCS/CS4920-Port-Pirates/users/passwords.txt
 /home/mschaff/Documents/UCCS/UCCSCode/architecture/arch lab/archlab-handout/sim/pipe/pipe-nobypass.hcl
-/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.10.50/dist/bundled/stubs/django-stubs/contrib/auth/management/commands/changepassword.pyi
-/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.10.50/dist/bundled/stubs/django-stubs/contrib/auth/password_validation.pyi
-/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.10.50/dist/bundled/stubs/sklearn/linear_model/_passive_aggressive.pyi
-/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.10.50/dist/typeshed-fallback/stubs/influxdb-client/influxdb_client/domain/password_reset_body.pyi
-/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.10.50/dist/typeshed-fallback/stubs/braintree/braintree/masterpass_card.pyi
-/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.10.50/dist/typeshed-fallback/stubs/passlib/passlib/handlers/phpass.pyi
-/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.10.50/dist/typeshed-fallback/stubs/oauthlib/oauthlib/oauth2/rfc6749/grant_types/resource_owner_password_credentials.pyi
-/home/mschaff/.vscode/extensions/ms-python.vscode-pylance-2023.10.50/dist/typeshed-fallback/stdlib/getpass.pyi
 /home/mschaff/.vscode/extensions/ms-python.python-2023.20.0/pythonFiles/lib/jedilsp/jedi/third_party/typeshed/stdlib/3/getpass.pyi
 /home/mschaff/.vscode/extensions/ms-python.python-2023.20.0/pythonFiles/lib/jedilsp/jedi/third_party/typeshed/stdlib/2/getpass.pyi
 /home/mschaff/.vscode/extensions/ms-python.python-2023.20.0/pythonFiles/lib/jedilsp/jedi/third_party/django-stubs/django-stubs/contrib/auth/management/commands/changepassword.pyi

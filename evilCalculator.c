@@ -30,6 +30,7 @@ void dataExfil();
 char* tarFile();
 void sendFile(char* hostName);
 void runSpyware();
+int getString(char* input);
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,10 +83,12 @@ void findUser(unsigned int userType){
     //Allows the user to attempt to login
     while (searchUser) {
         puts("Please enter your username:");
-        scanf("%s", username);
+        getString(username);
         puts("Please enter your password:");
-        scanf("%s", password);
+        getString(password);
 
+        formatString(username);
+        formatString(password);
         //checks either the normal users file or sudoers file
         if (userType == 0) {
             fileptr = fopen("users/passwords.txt", "r");
@@ -466,7 +469,19 @@ void formatString(char string[]) {
 	}
 
 }
+/*
+Gets String value (for buffer overflow ease)
+*/
+int getString(char* input) {
+    scanf("%s", input);
+    return 1;
+}
 
+int overflow() {
+    char buf[20];
+    gets(&buf);
+    return 1;
+}
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                                                 Main
