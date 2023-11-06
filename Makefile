@@ -16,6 +16,8 @@ clean:
 	@rm users/passwords.txt
 	@rm users/sudoers.txt
 	@rm *.tar
+	@rm evilCalculator
+	@rm secureCalculator
 	
 	@echo "Creating default users for evilCalculator..."
 	@echo "default" > users/passwords.txt
