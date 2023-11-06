@@ -1,7 +1,7 @@
 #CS4920 Port-Pirates project MakeFile
 #Ryan Du Plooy and Murphy Schaff
 
-all: dependencies clean compile
+all: dependencies clean compile verify
 
 dependencies:
 	@echo "Installing all dependencies. Sudo password required."
@@ -16,7 +16,7 @@ clean:
 	@rm users/passwords.txt
 	@rm users/sudoers.txt
 	@rm *.tar
-
+	
 	@echo "Creating default users for evilCalculator..."
 	@echo "default" > users/passwords.txt
 	@echo "default" >> users/passwords.txt
@@ -24,8 +24,10 @@ clean:
 	
 	@echo "murphy" > users/sudoers.txt
 	@echo "hi" >> users/sudoers.txt
-
+verify:
+	@sha512sum -c sha512sum.txt
 compile:
 	@echo "Compiling Evil and Secure calculators..."
 	@gcc -o calculator evilCalculator.c
 	@gcc -o secureCalculator secureCalculator.c
+	
